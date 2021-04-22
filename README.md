@@ -62,6 +62,8 @@ NOTES
 16. like spring-data-jpa, spring-data-rest is used to go further, giving you lesser boilerplate. it gives you endpoint
 17. spring-data-rest, makes basic crud available with only your model and repository. Implementation of spring-data-rest is in Student.java
 18. documentation no.6 gives you more insight how spring-data-rest work. see StudentModel.java and StudentRepository.java for the implementation
+19. important: hibernate can generate table based on your model, search how to do it
+20. you barely touch: AOP, Thymeleaf, MVC, and Security... take a look at that sometimes
 
 
 USEFUL COMMANDS
