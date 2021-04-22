@@ -3,9 +3,6 @@ package com.project.restapijava.ReqBody;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PutPersonReqBody {
-    
-    @JsonProperty("id")
-    public Integer id;
 
     @JsonProperty("name")
     public String name;
@@ -15,14 +12,6 @@ public class PutPersonReqBody {
 
     @JsonProperty("account_id")
     public Integer accountId;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

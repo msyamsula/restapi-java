@@ -10,4 +10,7 @@ public class PostPersonReqBody {
     @JsonProperty("account_id")
     public Integer accountId;
 
+    @JsonProperty("address")
+    public String address;
+
 }

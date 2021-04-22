@@ -50,10 +50,11 @@ public class PersonController {
     @PostMapping("/person")
     public String addPerson(@RequestBody PostPersonReqBody personReqBody) {
         PersonModel person = new PersonModel(personReqBody.name, personReqBody.accountId);
+        person.setAddress(personReqBody.address);
         return service.addPerson(person);
     }
 
-    @DeleteMapping("/clean/{idStr}")
+    @DeleteMapping("/person/{idStr}")
     public String cleanUp(@PathVariable String idStr){
         Integer id = Integer.parseInt(idStr);
         service.deleteById(id);
@@ -66,11 +67,12 @@ public class PersonController {
         PersonModel person = new PersonModel();
         
         person.setAccountId(personReq.getAccountId());
-        person.setId(personReq.getId());
+        person.setId(id);
         person.setName(personReq.getName());
         person.setAddress(personReq.getAddress());
 
-        service.updateById(id, person);
+    
+        service.updateById(id, person);    
 
         return "updated";
     }

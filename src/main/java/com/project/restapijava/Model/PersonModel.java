@@ -14,16 +14,21 @@ public class PersonModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    Integer id;
+    private Integer id;
 
     @Column(name = "name")
-    String name;
+    private String name;
 
     @Column(name = "address")
-    String address;
+    private String address;
 
     @Column(name = "account_id")
-    Integer accountId;
+    private Integer accountId;
+
+    // // set account_id as foreign key to account
+    // @JoinColumn(name = "account_id")
+    // @OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    // private AccountModel account;
 
     public Integer getId() {
         return id;

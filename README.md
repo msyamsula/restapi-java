@@ -6,12 +6,13 @@ REQUIREMENTS
 3. Mysql database with user "root", password "mysql", dbname "gorm"
     Table Person (id, name, address, account_id)
     Table Account (id, username, password)
+    Table Student (id, grades)
 4. Spring initlzr: vscode extension
 5. use appropriate java version: cmd+shift+p --> Java: Configure Java Runtime
 mvn package:
 6. spring-boot-starter-web: to activate rest api functionality
-7. spring-boot-starter-security
-8. spring-boot-starter-data-jpa & hibernate & jpa: to connect to database
+7. spring-boot-starter-security: for security reason
+8. spring-boot-starter-data-jpa & hibernate & jpa & spring-data-jpa: to connect to database
 9. spring-boot-devtools: for reload when developing
 10. spring-boot-starter-actuator: healthcheck and etc for free
 
@@ -27,12 +28,6 @@ RUNNING APP
 1. build the package: mvn package
 2. run the jar file in the target directory
 
-
-DOCUMENTATION
-1. https://www.tutorialsteacher.com/ioc: Inversion of Control Paradigm
-2. https://docs.jboss.org/hibernate/orm/5.4/quickstart/html_single/#tutorial_annotations: Java ORM
-3. https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-features.html: Spring boot actuator
-4. https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html: spring boot application.properties
 
 WHAT IS GRADLE AND MAVEN
 1. gradle is one of java package manager, like pip in python, npm in javascript, go.mod in golang
@@ -54,6 +49,19 @@ NOTES
 9. because of inversion of control (see documentation) entity manager is handled by spring
 10. Json parsing in response, is handled automatically with spring. No need to bother unless you want to create you own response
 11. for crud 101 please see Service/PersonServiceImpl.java
+12. to handle Foreign key object mapping please see project linkaja2020
+    or spring-boot/hibernate. There, you can see implementation of
+    one to one
+    one to many
+    many to many
+13. you can use 2 method to do crud in java without the help of spring-jpa
+    a. with hibernate using hql
+    b. with jpa using jpql
+14. spring-jpa is package that give basic crud for free. eventhough spring-jpa give us crud for free, some scenaoria might demand a full control over the query so hql and jpql is better
+15. spring-data-jpa is implemented in AccountRepository.java, (documentation no.5 list of all free service you get)
+16. like spring-data-jpa, spring-data-rest is used to go further, giving you lesser boilerplate. it gives you endpoint
+17. spring-data-rest, makes basic crud available with only your model and repository. Implementation of spring-data-rest is in Student.java
+18. documentation no.6 gives you more insight how spring-data-rest work. see StudentModel.java and StudentRepository.java for the implementation
 
 
 USEFUL COMMANDS
@@ -74,3 +82,12 @@ JAVA ANNOTATION
 8. @RequestParam "type" "name" : get variable from requestparam (args)
 9. @Override: it means implement function of interface
 10. @JsonProperty: specify json key for class attribute
+
+
+DOCUMENTATION
+1. https://www.tutorialsteacher.com/ioc: Inversion of Control Paradigm
+2. https://docs.jboss.org/hibernate/orm/5.4/quickstart/html_single/#tutorial_annotations: Java ORM
+3. https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-features.html: Spring boot actuator
+4. https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html: spring boot application.properties
+5. https://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html: spring-data-jpa
+6. https://docs.spring.io/spring-data/rest/docs/current/reference/html/#repository-resources

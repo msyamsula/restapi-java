@@ -3,11 +3,12 @@ package com.project.restapijava.Service;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import com.project.restapijava.Model.PersonModel;
 
-import org.hibernate.Session;
-import org.hibernate.query.Query;
+// import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,11 +16,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class PersonServiceImpl implements PersonService {
 
-    private Session session;
+    // private Session session;
+    private EntityManager theEntityManager;
 
     @Autowired
     public PersonServiceImpl(EntityManager entityManager) {
-        this.session = entityManager.unwrap(Session.class);
+        // this.session = entityManager.unwrap(Session.class);
+        this.theEntityManager = entityManager;
     }
 
     @Override
@@ -27,7 +30,12 @@ public class PersonServiceImpl implements PersonService {
     public List<PersonModel> getAll() {
         // Session session = entityManager.unwrap(Session.class);
 
-        Query<PersonModel> query = this.session.createQuery("from PersonModel", PersonModel.class);
+        // choose one of method below for querying
+        // 1. hibernate session (using hibernate)
+        // Query<PersonModel> query = this.session.createQuery("from PersonModel", PersonModel.class);
+        // 2. jpa (using java persistence api)
+        TypedQuery<PersonModel> query = this.theEntityManager.createQuery("from PersonModel", PersonModel.class);
+
 
         List<PersonModel> people = query.getResultList();
 
@@ -39,7 +47,11 @@ public class PersonServiceImpl implements PersonService {
     public PersonModel getById(Integer id) {
         // Session session = entityManager.unwrap(Session.class);
 
-        PersonModel person = this.session.get(PersonModel.class, id);
+        // choose one of type below for querying
+        // 1. hibernate session (using hibernate)
+        // PersonModel person = this.session.get(PersonModel.class, id);
+        // 2. jpa (using java persistence api)
+        PersonModel person = this.theEntityManager.find(PersonModel.class, id);
 
         return person;
     }
@@ -47,31 +59,42 @@ public class PersonServiceImpl implements PersonService {
     @Override
     @Transactional
     public String addPerson(PersonModel person) {
-        // Session session = entityManager.unwrap(Session.class);
-        this.session.save(person);
+        
+        // 1. using hibernate
+        // this.session.save(person);
+
+        // 2. using jpa
+        this.theEntityManager.merge(person);
         return "saved";
     }
 
     @Override
     @Transactional
     public String deleteById(Integer id) {
-        PersonModel person = this.session.get(PersonModel.class, id);
-        System.out.println(person.getName());
-        System.out.println(person.getAccountId());
-        this.session.delete(person);
+        // 1. using jpa
+        Query query = this.theEntityManager.createQuery("delete from PersonModel p where p.id=:personId");
+        query.setParameter("personId", id);
+        query.executeUpdate();
+
+        // 2. using hibernate
+        // PersonModel person = this.session.get(PersonModel.class, id);
+        // this.session.delete(person);
         return "clean";
     }
 
     @Override
     @Transactional
     public String updateById(Integer id, PersonModel newPerson) {
-        PersonModel person = this.session.get(PersonModel.class, id);
-        person.setAccountId(newPerson.getAccountId());
-        person.setAddress(newPerson.getAddress());
-        person.setName(newPerson.getName());
-        person.setId(newPerson.getId());
 
-        this.session.save(person);
+        
+        // 1. hibernate session (using hibernate)
+        // this.session.saveOrUpdate(newPerson);
+
+        // 2. jpa (using java persistence api)
+        // merge behaviour is: if newPerson id == 0 then add else update
+        this.theEntityManager.merge(newPerson);
+        
+
         return "updated";
     }
     
