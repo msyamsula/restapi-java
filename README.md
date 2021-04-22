@@ -82,6 +82,12 @@ JAVA ANNOTATION
 8. @RequestParam "type" "name" : get variable from requestparam (args)
 9. @Override: it means implement function of interface
 10. @JsonProperty: specify json key for class attribute
+11. @Respository: set class as repository
+12. @Service: set class as service
+13. @RepositoryRestResource(name = "path"): specify endpoint that is given by data rest
+what i mean by repository is layer in java application
+boilerplate java application is:
+controller -> service -> dao/repository -> database(persistent)
 
 
 DOCUMENTATION
