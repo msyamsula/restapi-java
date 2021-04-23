@@ -10,7 +10,7 @@ REQUIREMENTS
 4. Spring initlzr: vscode extension
 5. use appropriate java version: cmd+shift+p --> Java: Configure Java Runtime
 mvn package:
-6. spring-boot-starter-web: to activate rest api functionality
+6. spring-boot-starter-web: to activate rest api & mvc functionality
 7. spring-boot-starter-security: for security reason
 8. spring-boot-starter-data-jpa & hibernate & jpa & spring-data-jpa: to connect to database
 9. spring-boot-devtools: for reload when developing
