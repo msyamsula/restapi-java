@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 
-@RepositoryRestResource(path = "others") // specify path rather than use data rest nonsense automation
+@RepositoryRestResource(path = "students") // specify path rather than use data rest nonsense automation
 public interface StudentRepository extends JpaRepository<Student, Integer> {
     // this gives you basic crud automatically.
     // since the name of model is "Student" it will expose endpoint with base /students
